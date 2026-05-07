@@ -1,12 +1,9 @@
 import { useState } from "react";
 
 // ============================================================
-//  이메일 설정 (EmailJS — emailjs.com에서 발급)
+//  이메일 설정 (Web3Forms)
 // ============================================================
-const EMAILJS_SERVICE_ID  = "service_mgnsg16";   // 예: service_abc123
-const EMAILJS_TEMPLATE_ID = "template_x3ttayt";  // 예: template_xyz789
-const EMAILJS_PUBLIC_KEY  = "dpDL8IISDiISmRNJE";   // 예: aBcDeFgHiJkLmNoP
-const RECIPIENT_EMAIL     = "info@jungedu.com.au";
+const WEB3FORMS_KEY = "c446fbf4-ae3c-4f06-a407-30650371bf84";
 // ============================================================
 
 const STEPS = [
@@ -347,22 +344,18 @@ ${visaHist.details}
 Reference: REF-${Date.now().toString(36).toUpperCase()}
       `.trim();
 
-   const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    service_id: EMAILJS_SERVICE_ID,
-    template_id: EMAILJS_TEMPLATE_ID,
-    user_id: EMAILJS_PUBLIC_KEY,
-    template_params: {
-      name:    `${personal.familyName}, ${personal.givenNames}`,
-      email:   contact.email || "미입력",
-      time:    new Date().toLocaleString("ko-KR"),
-      message: body,
-    }
-  })
-});
-if (!res.ok) throw new Error(await res.text());
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "[정에듀] 학생비자 신청서 접수",
+          from_name: `${personal.familyName}, ${personal.givenNames}`,
+          email: contact.email || "미입력",
+          message: body,
+        })
+      });
+      if (!res.ok) throw new Error(await res.text());
       setSubmitted(true);
     } catch (e) {
       console.error(e);
