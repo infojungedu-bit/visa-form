@@ -535,7 +535,7 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
 
             <p style={{ fontSize: 13, fontWeight: 600, color: "#374151", margin: "12px 0 8px" }}>거주지 주소 (Residential Address) — 거리 주소 필수</p>
             <S label="국가 (Country)" value={contact.resCountry} onChange={setContactF("resCountry")} options={["KOREA, SOUTH", "AUSTRALIA", "OTHER"]} required />
-            <I label="주소 (Street Address)" value={contact.resAddress} onChange={setContactF("resAddress")} placeholder="101-1407, 33, Achi-ro, Buk-gu" required />
+            <I label="주소 (Street Address)" value={contact.resAddress} onChange={setContactF("resAddress")} placeholder="104-1057, 33, Achi-ro, Buk-gu" required />
             <div className="row row-3">
               <I label="도시 (Suburb/Town)" value={contact.resCity} onChange={setContactF("resCity")} placeholder="Pohang-si" required />
               <I label="주/도 (State/Province)" value={contact.resState} onChange={setContactF("resState")} placeholder="GYEONGSANGBUK-DO" />
