@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 // ============================================================
 //  이메일 설정 (EmailJS — emailjs.com에서 발급)
@@ -162,6 +163,7 @@ const BirthFields = ({ data, set }) => (
 );
 
 const blankCoe = () => ({ code: "", isContinuation: "" });
+const blankAusStudy = () => ({ school: "", subject: "", period: "" });
 const blankFamily = () => ({ relationship: "", familyName: "", givenNames: "", sex: "", dob: "", passportNo: "", passportCountry: "", nationality: "", issueDate: "", expiry: "", issuer: "", hasNationalId: "", idFamilyName: "", idGivenNames: "", idNumber: "", idCountry: "", idIssueDate: "", idExpiry: "", birthTown: "", birthState: "", birthCountry: "", relStatus: "", hasOtherNames: "", citizenOfPassport: "", citizenOther: "", hasOtherPassports: "", hasOtherIdDocs: "", hasAusVisa: "", ausVisaNumber: "", hadHealthExam: "", isChild: "" });
 const blankOtherFamily = () => ({ relationship: "", familyName: "", givenNames: "", sex: "", dob: "", countryOfResidence: "" });
 const blankEdu = () => ({ qualification: "", category: "", field: "", courseName: "", institution: "", country: "", dateFrom: "", dateTo: "" });
@@ -200,7 +202,8 @@ export default function App() {
   const [genuine, setGenuine] = useState({ circumstances: "", whyStudy: "", benefit: "", otherInfo: "", currentVisaReason: "" });
 
   // ── Step 8: Education & Employment
-  const [edu, setEdu] = useState({ highestSchooling: "", schoolingCourse: "", schoolingInstitution: "", schoolingCountry: "", hasOtherStudies: "", studiedInAustralia: "", ausStudySchool: "", ausStudySubject: "", ausStudyPeriod: "" });
+  const [edu, setEdu] = useState({ highestSchooling: "", schoolingCourse: "", schoolingInstitution: "", schoolingCountry: "", hasOtherStudies: "", studiedInAustralia: "" });
+  const [ausStudyHistory, setAusStudyHistory] = useState([blankAusStudy()]);
   const [eduHistory, setEduHistory] = useState([blankEdu()]);
   const [empHistory, setEmpHistory] = useState([blankEmp()]);
   const [futureEmp, setFutureEmp] = useState({ hasJobOffer: "", details: "" });
@@ -291,7 +294,7 @@ export default function App() {
 ■ 학력
 최고 학력: ${edu.highestSchooling} (${edu.schoolingCourse} / ${edu.schoolingInstitution}, ${edu.schoolingCountry})
 호주 외 추가 학력: ${edu.hasOtherStudies}${edu.hasOtherStudies === "Yes" ? eduHistory.map((e, i) => `\n학력 ${i + 1}: ${e.qualification} | ${e.courseName} | ${e.institution}, ${e.country} (${e.dateFrom}~${e.dateTo})`).join("") : ""}
-호주 내 학업 이력: ${edu.studiedInAustralia}${edu.studiedInAustralia === "Yes" ? `\n학교명: ${edu.ausStudySchool}\n과목명: ${edu.ausStudySubject}\n기간: ${edu.ausStudyPeriod}` : ""}
+호주 내 학업 이력: ${edu.studiedInAustralia}${edu.studiedInAustralia === "Yes" ? ausStudyHistory.map((a, i) => `\n학업 ${i+1}: ${a.school} | ${a.subject} | ${a.period}`).join("") : ""}
 
 ■ 취업 이력
 ${empHistory.map((e, i) => `취업 ${i + 1}: ${e.status} | ${e.position} @ ${e.orgName} (${e.country}) / ${e.dateFrom}~${e.dateTo}`).join("\n")}
@@ -345,8 +348,8 @@ ${visaHist.details}
 Reference: REF-${Date.now().toString(36).toUpperCase()}
       `.trim();
 
-      window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      await window.emailjs.send(
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+      await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
@@ -664,12 +667,20 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
             )}
             <YN label="호주에서 학업한 이력이 있습니까? (Previously studied in Australia?)" value={edu.studiedInAustralia} onChange={setEduF("studiedInAustralia")} />
             {edu.studiedInAustralia === "Yes" && (
-              <div className="sub-card">
-                <p style={{ fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 12 }}>호주 학업 이력 상세</p>
-                <I label="학교명 (Institution Name)" value={edu.ausStudySchool} onChange={setEduF("ausStudySchool")} placeholder="예: Alliance College, University of Adelaide..." required />
-                <I label="과목명 / 코스명 (Course/Subject Name)" value={edu.ausStudySubject} onChange={setEduF("ausStudySubject")} placeholder="예: Certificate III in Light Vehicle Mechanical Technology" required />
-                <I label="기간 (Period — 예: 2024.01 ~ 2025.06)" value={edu.ausStudyPeriod} onChange={setEduF("ausStudyPeriod")} placeholder="예: 2024.01 ~ 2025.06" required />
-              </div>
+              <>
+                {ausStudyHistory.map((a, i) => (
+                  <div key={i} className="sub-card">
+                    <div className="sub-card-header">
+                      <span style={{ fontSize: 13, fontWeight: 600 }}>호주 학업 #{i + 1}</span>
+                      {ausStudyHistory.length > 1 && <button className="btn-danger" onClick={() => removeArr(ausStudyHistory, setAusStudyHistory, i)}>삭제</button>}
+                    </div>
+                    <I label="학교명 (Institution Name)" value={a.school} onChange={v => updateArr(ausStudyHistory, setAusStudyHistory, i, "school", v)} placeholder="예: University of Adelaide" required />
+                    <I label="과목명 / 코스명 (Course/Subject Name)" value={a.subject} onChange={v => updateArr(ausStudyHistory, setAusStudyHistory, i, "subject", v)} placeholder="예: Certificate III in Automotive" required />
+                    <I label="기간 (예: 2024.01 ~ 2025.06)" value={a.period} onChange={v => updateArr(ausStudyHistory, setAusStudyHistory, i, "period", v)} placeholder="2024.01 ~ 2025.06" required />
+                  </div>
+                ))}
+                <AddBtn onClick={() => addArr(ausStudyHistory, setAusStudyHistory, blankAusStudy)} label="호주 학업 이력 추가" />
+              </>
             )}
 
             <div style={{ marginTop: 16 }}>
@@ -748,7 +759,15 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
                         {travels.length > 1 && <button className="btn-danger" onClick={() => removeArr(travels, setTravels, i)}>삭제</button>}
                       </div>
                       <div className="row row-2">
-                        <I label="해당 신청인 이름 (Name)" value={t.personName} onChange={v => updateArr(travels, setTravels, i, "personName", v)} placeholder={`${personal.familyName}, ${personal.givenNames}`} />
+                        <F label="해당 신청인 (Name)" required>
+                          <select value={t.personName} onChange={e => updateArr(travels, setTravels, i, "personName", e.target.value)}>
+                            <option value="">신청인 선택...</option>
+                            {personal.familyName && <option value={`${personal.familyName}, ${personal.givenNames}`}>{personal.familyName}, {personal.givenNames} (주 신청인)</option>}
+                            {health.hasAccompanying === "Yes" && accompanying.map((m, mi) => m.familyName ? (
+                              <option key={mi} value={`${m.familyName}, ${m.givenNames}`}>{m.familyName}, {m.givenNames} (동반가족)</option>
+                            ) : null)}
+                          </select>
+                        </F>
                         <I label="방문 국가 (Country)" value={t.country} onChange={v => updateArr(travels, setTravels, i, "country", v)} placeholder="JAPAN" required />
                       </div>
                       <div className="row row-3">
