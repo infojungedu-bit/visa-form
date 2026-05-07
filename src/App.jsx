@@ -115,13 +115,13 @@ const AddBtn = ({ onClick, label }) => (
 const PassportFields = ({ data, set, prefix = "" }) => (
   <>
     <div className="row row-2">
-      <I label="성(Family Name)" value={data.familyName} onChange={set("familyName")} placeholder="KIM" required />
-      <I label="이름(Given Names)" value={data.givenNames} onChange={set("givenNames")} placeholder="HYUNGJIN" required />
+      <I label="성(Family Name)" value={data.familyName} onChange={set("familyName")} placeholder="KI" required />
+      <I label="이름(Given Names)" value={data.givenNames} onChange={set("givenNames")} placeholder="HYUN" required />
     </div>
     <div className="row row-3">
       <S label="성별(Sex)" value={data.sex} onChange={set("sex")} options={[{ v: "Male", l: "남성(Male)" }, { v: "Female", l: "여성(Female)" }, { v: "Other", l: "기타(Other)" }]} required />
       <I label="생년월일(Date of Birth)" value={data.dob} onChange={set("dob")} type="date" required />
-      <I label="여권번호(Passport Number)" value={data.passportNo} onChange={set("passportNo")} placeholder="M677J1155" required />
+      <I label="여권번호(Passport Number)" value={data.passportNo} onChange={set("passportNo")} placeholder="M677J1111" required />
     </div>
     <div className="row row-2">
       <S label="여권 발급국(Country of Passport)" value={data.passportCountry} onChange={set("passportCountry")} options={["KOREA, REPUBLIC OF (SOUTH)", "AUSTRALIA", "CHINA", "JAPAN", "OTHER"]} required />
@@ -140,10 +140,10 @@ const NationalIdFields = ({ data, set }) => (
     <p style={{ fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 12 }}>신분증 정보 (National Identity Card)</p>
     <div className="row row-2">
       <I label="성(Family Name)" value={data.idFamilyName} onChange={set("idFamilyName")} placeholder="KIM" />
-      <I label="이름(Given Names)" value={data.idGivenNames} onChange={set("idGivenNames")} placeholder="HYUNGJIN" />
+      <I label="이름(Given Names)" value={data.idGivenNames} onChange={set("idGivenNames")} placeholder="HYUNG" />
     </div>
     <div className="row row-2">
-      <I label="신분증 번호(Identification Number)" value={data.idNumber} onChange={set("idNumber")} placeholder="9908221703418" />
+      <I label="신분증 번호(Identification Number)" value={data.idNumber} onChange={set("idNumber")} placeholder="9908221111111" />
       <S label="발급국(Country of Issue)" value={data.idCountry} onChange={set("idCountry")} options={["KOREA, SOUTH", "AUSTRALIA", "CHINA", "JAPAN", "OTHER"]} />
     </div>
     <div className="row row-2">
@@ -488,13 +488,13 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
                   <S label="주 신청인과의 관계 (Relationship)" value={m.relationship} onChange={v => updateArr(accompanying, setAccompanying, i, "relationship", v)} options={["Spouse/De Facto Partner", "Child", "Other"]} required />
                   <p style={{ fontSize: 12, fontWeight: 600, color: "#374151", margin: "10px 0 8px" }}>여권 정보</p>
                   <div className="row row-2">
-                    <I label="성 (Family Name)" value={m.familyName} onChange={v => updateArr(accompanying, setAccompanying, i, "familyName", v)} placeholder="JEONG" required />
-                    <I label="이름 (Given Names)" value={m.givenNames} onChange={v => updateArr(accompanying, setAccompanying, i, "givenNames", v)} placeholder="HAEIN" required />
+                    <I label="성 (Family Name)" value={m.familyName} onChange={v => updateArr(accompanying, setAccompanying, i, "familyName", v)} placeholder="JUNG" required />
+                    <I label="이름 (Given Names)" value={m.givenNames} onChange={v => updateArr(accompanying, setAccompanying, i, "givenNames", v)} placeholder="Hkkk" required />
                   </div>
                   <div className="row row-3">
                     <S label="성별" value={m.sex} onChange={v => updateArr(accompanying, setAccompanying, i, "sex", v)} options={[{ v: "Male", l: "남성" }, { v: "Female", l: "여성" }]} />
                     <I label="생년월일" value={m.dob} onChange={v => updateArr(accompanying, setAccompanying, i, "dob", v)} type="date" />
-                    <I label="여권번호" value={m.passportNo} onChange={v => updateArr(accompanying, setAccompanying, i, "passportNo", v)} placeholder="M049G6776" />
+                    <I label="여권번호" value={m.passportNo} onChange={v => updateArr(accompanying, setAccompanying, i, "passportNo", v)} placeholder="M04116" />
                   </div>
                   <div className="row row-2">
                     <S label="여권 발급국" value={m.passportCountry} onChange={v => updateArr(accompanying, setAccompanying, i, "passportCountry", v)} options={["KOREA, REPUBLIC OF (SOUTH)", "AUSTRALIA", "OTHER"]} />
@@ -539,7 +539,7 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
             <div className="row row-3">
               <I label="도시 (Suburb/Town)" value={contact.resCity} onChange={setContactF("resCity")} placeholder="Pohang-si" required />
               <I label="주/도 (State/Province)" value={contact.resState} onChange={setContactF("resState")} placeholder="GYEONGSANGBUK-DO" />
-              <I label="우편번호 (Postal Code)" value={contact.resPostcode} onChange={setContactF("resPostcode")} placeholder="37643" />
+              <I label="우편번호 (Postal Code)" value={contact.resPostcode} onChange={setContactF("resPostcode")} placeholder="37113" />
             </div>
 
             <YN label="우편 주소가 거주지 주소와 동일합니까?" value={contact.samePostal} onChange={setContactF("samePostal")} required />
@@ -547,9 +547,9 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
               <>
                 <p style={{ fontSize: 13, fontWeight: 600, color: "#374151", margin: "10px 0 8px" }}>우편 주소 (Postal Address)</p>
                 <S label="국가" value={contact.postCountry} onChange={setContactF("postCountry")} options={["KOREA, SOUTH", "AUSTRALIA", "OTHER"]} />
-                <I label="주소" value={contact.postAddress} onChange={setContactF("postAddress")} placeholder="U2/5 Brigalow Ave" />
+                <I label="주소" value={contact.postAddress} onChange={setContactF("postAddress")} placeholder="U2/5 Brigahggg Ave" />
                 <div className="row row-3">
-                  <I label="도시" value={contact.postCity} onChange={setContactF("postCity")} placeholder="Kensington Gardens" />
+                  <I label="도시" value={contact.postCity} onChange={setContactF("postCity")} placeholder="Kenston Gardens" />
                   <I label="주/도" value={contact.postState} onChange={setContactF("postState")} placeholder="South Australia" />
                   <I label="우편번호" value={contact.postPostcode} onChange={setContactF("postPostcode")} placeholder="5068" />
                 </div>
@@ -560,9 +560,9 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
             <div className="row row-3">
               <I label="집 전화 (Home Phone)" value={contact.homePhone} onChange={setContactF("homePhone")} placeholder="" />
               <I label="직장 전화 (Business Phone)" value={contact.businessPhone} onChange={setContactF("businessPhone")} placeholder="" />
-              <I label="휴대전화 (Mobile)" value={contact.mobilePhone} onChange={setContactF("mobilePhone")} placeholder="0411086717" required />
+              <I label="휴대전화 (Mobile)" value={contact.mobilePhone} onChange={setContactF("mobilePhone")} placeholder="0411111717" required />
             </div>
-            <I label="이메일 (Email Address)" value={contact.email} onChange={setContactF("email")} type="email" placeholder="hjk990822@gmail.com" required />
+            <I label="이메일 (Email Address)" value={contact.email} onChange={setContactF("email")} type="email" placeholder="hjk95588=@gmail.com" required />
           </div>
         )}
 
@@ -587,7 +587,7 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
                       <S label="관계 (Relationship)" value={m.relationship} onChange={v => updateArr(otherFamily, setOtherFamily, i, "relationship", v)} options={["Parent", "Brother", "Sister", "Step-Parent", "Half-Brother", "Half-Sister"]} required />
                       <div className="row row-2">
                         <I label="성 (Family Name)" value={m.familyName} onChange={v => updateArr(otherFamily, setOtherFamily, i, "familyName", v)} placeholder="KIM" required />
-                        <I label="이름 (Given Names)" value={m.givenNames} onChange={v => updateArr(otherFamily, setOtherFamily, i, "givenNames", v)} placeholder="Yunju" required />
+                        <I label="이름 (Given Names)" value={m.givenNames} onChange={v => updateArr(otherFamily, setOtherFamily, i, "givenNames", v)} placeholder="Yjjj" required />
                       </div>
                       <div className="row row-3">
                         <S label="성별" value={m.sex} onChange={v => updateArr(otherFamily, setOtherFamily, i, "sex", v)} options={[{ v: "Male", l: "남성" }, { v: "Female", l: "여성" }]} />
@@ -614,7 +614,7 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
                 <S label="지원자 관계 (Relationship to Applicant)" value={funding.fundingRelationship} onChange={setFundingF("fundingRelationship")} options={["Parent", "Spouse/De Facto", "Employer", "Government", "Other"]} />
                 <S label="자금 유형 (Funding Type)" value={funding.fundingType} onChange={setFundingF("fundingType")} options={["Deposit in financial institution", "Scholarship", "Loan agreement", "Property", "Other"]} />
                 <div className="row row-2">
-                  <I label="금액 (AUD — 달러만)" value={funding.fundingAmount} onChange={setFundingF("fundingAmount")} type="number" placeholder="57741" />
+                  <I label="금액 (AUD — 달러만)" value={funding.fundingAmount} onChange={setFundingF("fundingAmount")} type="number" placeholder="571111" />
                   <I label="금융기관 (Financial Institution)" value={funding.fundingInstitution} onChange={setFundingF("fundingInstitution")} placeholder="Commercial Bank" />
                 </div>
                 <YN label="신청인 본인 명의 계좌입니까?" value={funding.fundingOwnName} onChange={setFundingF("fundingOwnName")} />
@@ -631,7 +631,7 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
             <S label="호주 외에서 완료한 최고 학력 수준 (Highest level of schooling outside Australia)" value={edu.highestSchooling} onChange={setEduF("highestSchooling")} options={["Secondary school - Year 11 or lower or equivalent", "Secondary school - Year 12 or equivalent", "Certificate I/II", "Certificate III/IV", "Diploma/Advanced Diploma", "Bachelor Degree", "Graduate Certificate/Diploma", "Masters Degree", "Doctorate"]} required />
             <div className="row row-2">
               <I label="코스명 (Course Name)" value={edu.schoolingCourse} onChange={setEduF("schoolingCourse")} placeholder="High School" />
-              <I label="학교명 (Institution Name)" value={edu.schoolingInstitution} onChange={setEduF("schoolingInstitution")} placeholder="Daedong High School" />
+              <I label="학교명 (Institution Name)" value={edu.schoolingInstitution} onChange={setEduF("schoolingInstitution")} placeholder="Dang High School" />
             </div>
             <S label="학교 국가 (Country)" value={edu.schoolingCountry} onChange={setEduF("schoolingCountry")} options={["KOREA, SOUTH", "AUSTRALIA", "OTHER"]} />
 
@@ -692,15 +692,15 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
                       <S label="국가" value={e.country} onChange={v => updateArr(empHistory, setEmpHistory, i, "country", v)} options={["KOREA, SOUTH", "AUSTRALIA", "OTHER"]} />
                       <I label="주소" value={e.address} onChange={v => updateArr(empHistory, setEmpHistory, i, "address", v)} placeholder="111 Eldridge Rd" />
                       <div className="row row-3">
-                        <I label="도시" value={e.city} onChange={v => updateArr(empHistory, setEmpHistory, i, "city", v)} placeholder="Condell Park" />
+                        <I label="도시" value={e.city} onChange={v => updateArr(empHistory, setEmpHistory, i, "city", v)} placeholder="Condel Park" />
                         <I label="주/도" value={e.state} onChange={v => updateArr(empHistory, setEmpHistory, i, "state", v)} placeholder="New South Wales" />
                         <I label="우편번호" value={e.postcode} onChange={v => updateArr(empHistory, setEmpHistory, i, "postcode", v)} placeholder="2200" />
                       </div>
                       <div className="row row-2">
-                        <I label="담당자 성 (Contact Family Name)" value={e.contactFamily} onChange={v => updateArr(empHistory, setEmpHistory, i, "contactFamily", v)} placeholder="Cho" />
+                        <I label="담당자 성 (Contact Family Name)" value={e.contactFamily} onChange={v => updateArr(empHistory, setEmpHistory, i, "contactFamily", v)} placeholder="Park" />
                         <I label="담당자 이름 (Contact Given Names)" value={e.contactGiven} onChange={v => updateArr(empHistory, setEmpHistory, i, "contactGiven", v)} placeholder="Joshua" />
                       </div>
-                      <I label="담당자 전화 (Business Phone)" value={e.contactPhone} onChange={v => updateArr(empHistory, setEmpHistory, i, "contactPhone", v)} placeholder="0298921619" />
+                      <I label="담당자 전화 (Business Phone)" value={e.contactPhone} onChange={v => updateArr(empHistory, setEmpHistory, i, "contactPhone", v)} placeholder="0298921119" />
                       <I label="직책 (Position)" value={e.position} onChange={v => updateArr(empHistory, setEmpHistory, i, "position", v)} placeholder="General worker" required />
                     </>
                   ) : null}
