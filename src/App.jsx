@@ -364,11 +364,6 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
     setLoading(false);
   };
 
-
-
-    setLoading(false);
-  };
-
   if (submitted) return (
     <>
       <style>{css}</style>
