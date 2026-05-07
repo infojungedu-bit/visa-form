@@ -1,5 +1,4 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
 
 // ============================================================
 //  이메일 설정 (EmailJS — emailjs.com에서 발급)
@@ -348,17 +347,22 @@ ${visaHist.details}
 Reference: REF-${Date.now().toString(36).toUpperCase()}
       `.trim();
 
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          name:    `${personal.familyName}, ${personal.givenNames}`,
-          email:   contact.email || "미입력",
-          time:    new Date().toLocaleString("ko-KR"),
-          message: body,
-        },
-        { publicKey: EMAILJS_PUBLIC_KEY }
-      );
+   const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    service_id: EMAILJS_SERVICE_ID,
+    template_id: EMAILJS_TEMPLATE_ID,
+    user_id: EMAILJS_PUBLIC_KEY,
+    template_params: {
+      name:    `${personal.familyName}, ${personal.givenNames}`,
+      email:   contact.email || "미입력",
+      time:    new Date().toLocaleString("ko-KR"),
+      message: body,
+    }
+  })
+});
+if (!res.ok) throw new Error(await res.text());
       setSubmitted(true);
     } catch (e) {
       console.error(e);
