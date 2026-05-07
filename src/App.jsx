@@ -348,7 +348,6 @@ ${visaHist.details}
 Reference: REF-${Date.now().toString(36).toUpperCase()}
       `.trim();
 
-      emailjs.init(EMAILJS_PUBLIC_KEY);
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -357,7 +356,8 @@ Reference: REF-${Date.now().toString(36).toUpperCase()}
           email:   contact.email || "미입력",
           time:    new Date().toLocaleString("ko-KR"),
           message: body,
-        }
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
       );
       setSubmitted(true);
     } catch (e) {
